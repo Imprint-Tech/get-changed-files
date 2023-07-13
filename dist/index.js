@@ -4837,7 +4837,7 @@ const core = __importStar(__webpack_require__(470));
 const github_1 = __webpack_require__(469);
 const minimatch_1 = __importDefault(__webpack_require__(93));
 function run() {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f;
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // Create GitHub client with the API token.
@@ -4865,8 +4865,12 @@ function run() {
                     base = github_1.context.payload.before;
                     head = github_1.context.payload.after;
                     break;
+                case 'merge_group':
+                    base = (_e = github_1.context.payload.merge_group) === null || _e === void 0 ? void 0 : _e.base_sha;
+                    head = (_f = github_1.context.payload.merge_group) === null || _f === void 0 ? void 0 : _f.head_sha;
+                    break;
                 default:
-                    core.setFailed(`This action only supports pull requests and pushes, ${github_1.context.eventName} events are not supported. ` +
+                    core.setFailed(`This action only supports pull requests, pushes, and merge_group ${github_1.context.eventName} events are not supported. ` +
                         "Please submit an issue on this action's GitHub repo if you believe this in correct.");
             }
             // Log the base and head commits
