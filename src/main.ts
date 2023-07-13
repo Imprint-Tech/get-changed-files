@@ -37,9 +37,13 @@ async function run(): Promise<void> {
         base = context.payload.before
         head = context.payload.after
         break
+      case 'merge_group':
+        base = context.payload.merge_group?.base_sha
+        head = context.payload.merge_group?.head_sha
+        break
       default:
         core.setFailed(
-          `This action only supports pull requests and pushes, ${context.eventName} events are not supported. ` +
+          `This action only supports pull requests, pushes, and merge_group ${context.eventName} events are not supported. ` +
             "Please submit an issue on this action's GitHub repo if you believe this in correct."
         )
     }
